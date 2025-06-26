@@ -1,0 +1,68 @@
+pdf_courses=>
+
+1. Policy Name : Only admins manage pdfs
+Policy Command : All
+Target Roles: authenticated
+
+using (
+    ((created_by = auth.uid()) AND (( SELECT users.role
+    FROM users
+    WHERE (users.id = auth.uid())) = 'admin'::text))
+ )
+
+ with check (
+    ((created_by = auth.uid()) AND (( SELECT users.role
+       FROM users
+      WHERE (users.id = auth.uid())) = 'admin'::text))
+ )
+
+2. Policy Name : Public can read course list
+Policy command : SELECT
+Target Roles: public
+
+using (
+    true
+)
+
+users =>
+
+## 3. Policy Name: User can insert their own purchases
+Policy Command: INSERT
+Target Roles: authenticated
+
+with check (
+     id = (auth.uid())::text
+)
+
+## 4. Policy Name: User can view their purchases
+    Policy Command: SELECT
+Target Roles: authenticate
+
+using (
+    id = (auth.uid())::text
+)
+
+## 5. Policy Name: Allow users to insert themselves
+Policy Command: INSERT
+Target Roles: authenticated
+
+with check (
+    id = (auth.uid())::text
+)
+
+purchase =>
+6. Policy Name = User can insert their own purchases
+Policy Command: INSERT
+Target Roles: authenticated
+
+with check (
+    (user_id = auth.uid())
+)
+
+7. Policy Name = User can view their purchases
+Policy Command: SELECT
+Target Roles: authenticated
+
+using (
+    (user_id = auth.uid())
+)
