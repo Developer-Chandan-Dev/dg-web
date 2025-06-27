@@ -201,7 +201,12 @@ export async function updatePdfCourseAction(id: string, formData: FormData) {
             });
 
         if (error) throw new Error("Failed to upload new PDF");
-        file_url = uploaded?.path!;
+        if (uploaded?.path) {
+            file_url = uploaded.path;
+        } else {
+            throw new Error("Failed to retrieve the uploaded file URL");
+        }
+        
     }
 
     // ✅ Replace Thumbnail if provided
@@ -217,7 +222,11 @@ export async function updatePdfCourseAction(id: string, formData: FormData) {
             });
 
         if (error) throw new Error("Failed to upload new thumbnail");
-        thumbnail_url = uploaded?.path!;
+        if (uploaded?.path) {
+            thumbnail_url = uploaded.path;
+        } else {
+            throw new Error("Failed to retrieve the uploaded thumbnail URL");
+        }
     }
 
     // 📥 Update DB

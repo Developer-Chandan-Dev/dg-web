@@ -10,7 +10,7 @@ import {
     BarChart3,
     ChevronsLeft,
     ChevronsRight,
-    X, SidebarOpen, PanelRight,
+    X, PanelRight,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 

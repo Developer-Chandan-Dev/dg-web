@@ -1,6 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
-import { headers } from "next/headers";
 import {createSupabaseClient} from "@/lib/supabase";
 
 export async function POST(req: Request) {

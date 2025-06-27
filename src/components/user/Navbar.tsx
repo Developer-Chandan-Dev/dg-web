@@ -1,6 +1,5 @@
 "use client";
 import React from 'react'
-import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import {ModeToggle} from "@/components/mode-toggle";
 import {SignInButton, SignedIn, SignedOut, UserButton} from "@clerk/nextjs";

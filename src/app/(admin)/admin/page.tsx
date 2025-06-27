@@ -1,10 +1,9 @@
 import { redirect } from 'next/navigation'
 import { checkRole } from '@/utils/roles'
-import { SearchUsers } from './SearchUsers'
+import { SearchUsers } from '@/components/admin/SearchUsers';
 import { clerkClient } from '@clerk/nextjs/server'
 import { removeRole, setRole } from './_actions'
 import {AdminUploadForm} from "@/components/admin/AdminUploadForm";
-import PdfsTable from "@/components/admin/PdfsTable";
 import {AdminPDFTable} from "@/components/admin/AdminPDFTable";
 
 export default async function AdminDashboard(params: {
@@ -65,7 +64,6 @@ export default async function AdminDashboard(params: {
 
             <AdminUploadForm/>
 
-            {/*<PdfsTable/>*/}
             <AdminPDFTable/>
 
 

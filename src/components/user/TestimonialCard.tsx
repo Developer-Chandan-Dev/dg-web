@@ -9,7 +9,7 @@ interface TestimonialsProps {
     content: string,
 }
 
-const TestimonialCard = ({id, name, title, image, content}: TestimonialsProps) => {
+const TestimonialCard = ({name, title, image, content}: TestimonialsProps) => {
 
     return (
         <div className="p-4 md:w-1/2 w-full">

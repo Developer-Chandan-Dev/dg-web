@@ -2,7 +2,6 @@
 import { getAuth } from "@clerk/nextjs/server";
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
-import { Readable } from "stream";
 
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

@@ -1,23 +1,19 @@
 "use client"
-import React, {useLayoutEffect, useRef} from 'react'
+import React, { useLayoutEffect } from 'react';
 import Image from "next/image";
-import gsap from 'gsap'
+import gsap from 'gsap';
 
 interface MediumCardProps {
-    name: string,
-    title: string,
-    image: string,
-    content: string,
+    name: string;
+    image: string;
+    content: string;
 }
 
 const MediumCard = ({
-                        name = "name",
-                        title = "title",
-                        image = "/images/user1.jpg",
-                        content = "content"
-                    }: MediumCardProps) => {
-
-
+    name = "name",
+    image = "/images/user1.jpg",
+    content = "content",
+}: MediumCardProps) => {
     useLayoutEffect(() => {
         gsap.to(".feature-card", {
             y: -20,
@@ -30,13 +26,12 @@ const MediumCard = ({
     }, []);
 
     return (
-        <div
-            className={"feature-card w-72 h-96 flex-center text-center"}>
-            <Image src={image} alt={"user image"} width={100} height={100} className="rounded-full"/>
+        <div className={"feature-card w-72 h-96 flex-center text-center"}>
+            <Image src={image} alt={"user image"} width={100} height={100} className="rounded-full" />
             <h4 className="font-semibold mt-3 py-2">{name}</h4>
-            <p className={"text-[15px]"}>{content}
-            </p>
+            <p className={"text-[15px]"}>{content}</p>
         </div>
-    )
-}
-export default MediumCard
+    );
+};
+
+export default MediumCard;

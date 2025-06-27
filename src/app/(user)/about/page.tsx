@@ -1,5 +1,4 @@
 import React from 'react'
-import {Button} from "@/components/ui/button";
 import Image from "next/image";
 import {FacebookIcon, InstagramIcon, LinkedinIcon, TwitterIcon} from "lucide-react";
 import Link from "next/link";

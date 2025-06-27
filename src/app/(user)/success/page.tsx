@@ -1,6 +1,5 @@
 // app/success/page.tsx
 import { stripe } from '@/lib/stripe';
-import { redirect } from 'next/navigation';
 
 export default async function SuccessPage({
   searchParams,
