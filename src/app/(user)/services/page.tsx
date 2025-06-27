@@ -2,6 +2,8 @@ import Image from "next/image";
 import { getAllCourses } from "@/lib/actions/dg.actions";
 import Link from "next/link";
 
+export const dynamic = 'force-dynamic' // OR omit if you remove all dynamic logic
+
 export default async function ServicesPage() {
     const pdfs = await getAllCourses({ title: "" });
 

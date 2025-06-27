@@ -4,6 +4,8 @@ import {FacebookIcon, InstagramIcon, LinkedinIcon, TwitterIcon} from "lucide-rea
 import Link from "next/link";
 import CustomButton from "@/components/user/CustomButton";
 
+export const dynamic = 'force-dynamic' // OR omit if you remove all dynamic logic
+
 const AboutPage = () => {
     return (
         <section className={"w-full xl:w-[1200px] mx-auto h-auto"}>

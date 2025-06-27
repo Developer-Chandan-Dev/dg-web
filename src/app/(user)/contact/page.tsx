@@ -1,6 +1,8 @@
 import React from 'react'
 import {FacebookIcon, InstagramIcon, LinkedinIcon, TwitterIcon} from 'lucide-react'
 
+export const dynamic = 'force-dynamic' // OR omit if you remove all dynamic logic
+
 const ContactPage = () => {
     return (
         <section className={"w-full h-auto xl:w-[1200px] mx-auto"}>

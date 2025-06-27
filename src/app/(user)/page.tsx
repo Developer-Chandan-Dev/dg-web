@@ -9,6 +9,8 @@ import {ourExperts, testimonials} from "@/constants";
 import CustomButton from "@/components/user/CustomButton";
 import FeaturedCourses from '@/components/user/FeaturedCourses'
 
+export const dynamic = "force-dynamic"; // Force dynamic rendering
+
 const Page = () => {
 
     return (
