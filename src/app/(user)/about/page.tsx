@@ -14,7 +14,7 @@ const AboutPage = () => {
                     <h1 className={"py-3"}>
                         About Page
                     </h1>
-                    <p className={"py-2"}>DB Web is a online platform for Digital Marketing Courses you can download
+                    <p className={"py-2"}>{process.env.NEXT_PUBLIC_WEBSITE_NAME} is a online platform for Digital Marketing Courses you can download
                         knowledgable courses from
                         here and get pdf for reading.</p>
                 </div>
@@ -27,10 +27,10 @@ const AboutPage = () => {
                     <Image src={"/images/d-1.webp"} alt={"d-1"} width={450} height={450}/>
                 </div>
                 <div className={"lg:w-[45%]"}>
-                    <h2 className={"py-3 max-lg:mt-5"}>Discover the SkillsBazzar Difference Empowering Your Career
+                    <h2 className={"py-3 max-lg:mt-5"}>Discover the {process.env.NEXT_PUBLIC_WEBSITE_NAME} Difference Empowering Your Career
                         Growth</h2>
                     <p className={"py-2"}>
-                        At SkillsBazzar, we are passionate about empowering individuals with the skills and knowledge
+                        At {process.env.NEXT_PUBLIC_WEBSITE_NAME}, we are passionate about empowering individuals with the skills and knowledge
                         they need to achieve their career goals. Our platform offers a wide range of courses and
                         training programs, delivered by industry experts, to help you stay ahead in today’s fast-paced
                         and competitive job market. We believe that learning should be accessible to everyone, which is
@@ -100,7 +100,7 @@ const AboutPage = () => {
                             experience managing over ₹1 crore in ad spend, he optimizes campaigns for maximum ROI while
                             keeping ad fatigue in check.
                             <br/><br/>
-                            At SkillsBazzar, we are passionate about empowering individuals with the skills and
+                            At {process.env.NEXT_PUBLIC_WEBSITE_NAME}, we are passionate about empowering individuals with the skills and
                             knowledge
                             they need to achieve their career goals. Our platform offers a wide range of courses and
                             training programs, delivered by industry experts, to help you stay ahead in today’s

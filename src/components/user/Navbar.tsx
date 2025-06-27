@@ -17,7 +17,7 @@ const Navbar = () => {
             <Link href={"/"}>
                 <div className={"flex items-center gap-3"}>
                     <Image src={"/images/user2.jpg"} width={35} height={35} alt={"Logo"} className={"p-1 rounded-full ring-2 ring-blue-500"} />
-                    <p className={"text-[18px] max-sm:hidden block font-semibold"}>Skillsbazzar2</p>
+                    <p className={"text-[18px] max-sm:hidden block font-semibold"}>{process.env.NEXT_PUBLIC_WEBSITE_NAME}</p>
                 </div>
             </Link>
             <div className="hidden gap-7 relative md:flex ">
@@ -30,7 +30,7 @@ const Navbar = () => {
                         <Link href={"/"}>
                             <div className={"flex items-center gap-3"}>
                                 <Image src={"/images/user2.jpg"} width={35} height={35} alt={"Logo"} className={"p-1 rounded-full ring-2 ring-blue-500"} />
-                                <p className={"text-[18px] max-sm:hidden block font-semibold"}>Skillsbazzar2</p>
+                                <p className={"text-[18px] max-sm:hidden block font-semibold"}>{process.env.NEXT_PUBLIC_WEBSITE_NAME}</p>
                             </div>
                         </Link>
                         <div className={"w-8 h-8 rounded-md flex-center border border-gray-200 text-gray-800 dark:text-gray-100 dark:bg-[#14152c] bg-white dark:border-gray-800 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer"} onClick={()=> setIsOpen(false)}>

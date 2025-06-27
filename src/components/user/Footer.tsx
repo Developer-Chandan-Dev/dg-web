@@ -13,7 +13,7 @@ const Footer = () => {
                           className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
                         <div className={"flex items-center gap-3"}>
                             <Image src={"/images/user2.jpg"} width={35} height={35} alt={"Logo"} className={"p-1 rounded-full ring-2 ring-blue-500"} />
-                            <p className={"text-[18px] max-sm:hidden block font-semibold"}>Skillsbazzar2</p>
+                            <p className={"text-[18px] max-sm:hidden block font-semibold"}>{process.env.NEXT_PUBLIC_WEBSITE_NAME}</p>
                         </div>
                     </Link>
                     <p className="mt-2 text-sm text-gray-500">It&apos;s a digital marketing website made for helping
@@ -29,13 +29,13 @@ const Footer = () => {
                                 <Link href={"/"} className="text-gray-600 hover:text-gray-800">Home</Link>
                             </li>
                             <li>
-                                <Link href={"/"} className="text-gray-600 hover:text-gray-800">About</Link>
+                                <Link href={"/about"} className="text-gray-600 hover:text-gray-800">About</Link>
                             </li>
                             <li>
-                                <Link href={"/"} className="text-gray-600 hover:text-gray-800">Contact</Link>
+                                <Link href={"/contact"} className="text-gray-600 hover:text-gray-800">Contact</Link>
                             </li>
                             <li>
-                                <Link href={"/"} className="text-gray-600 hover:text-gray-800">Services</Link>
+                                <Link href={"/services"} className="text-gray-600 hover:text-gray-800">Services</Link>
                             </li>
                         </nav>
                     </div>
@@ -43,10 +43,10 @@ const Footer = () => {
             </div>
             <div className="">
                 <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
-                    <p className="text-gray-500 text-sm text-center sm:text-left">© 2020 Tailblocks —
-                        <Link href="https://twitter.com/knyttneve" rel="noopener noreferrer"
+                    <p className="text-gray-500 text-sm text-center sm:text-left">© 2025 {process.env.NEXT_PUBLIC_WEBSITE_NAME} —
+                        <Link href="https://github.com/Developer-Chandan-Dev" rel="noopener noreferrer"
                               className="text-gray-600 ml-1"
-                              target="_blank">@knyttneve</Link>
+                              target="_blank">@DevChandan</Link>
                     </p>
                     <span className="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
                     <Link href={"/"} className="text-gray-500">
@@ -58,7 +58,7 @@ const Footer = () => {
                     <Link href={"/"} className="ml-3 text-gray-500">
                         <Instagram/>
                     </Link>
-                    <Link href={"/"} className="ml-3 text-gray-500">
+                    <Link href={"https://in.linkedin.com/in/chandan-dev-developer"} className="ml-3 text-gray-500">
                       <Linkedin/>
                     </Link>
                     </span>

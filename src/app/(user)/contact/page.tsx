@@ -11,7 +11,7 @@ const ContactPage = () => {
                     <h1 className={"py-3"}>
                         Contact Us Page
                     </h1>
-                    <p className={"py-2"}>DB Web is a online platform for Digital Marketing Courses you can download
+                    <p className={"py-2"}>{process.env.NEXT_PUBLIC_WEBSITE_NAME} is a online platform for Digital Marketing Courses you can download
                         knowledgable courses from
                         here and get pdf for reading.</p>
                 </div>

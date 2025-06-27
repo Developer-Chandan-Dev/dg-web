@@ -13,7 +13,7 @@ export default async function ServicesPage() {
                 <div className="w-[90%] sm:w-[60%] lg:w-[50%]">
                     <h1 className="py-3">Services Page</h1>
                     <p className="py-2">
-                        DB Web is an online platform for Digital Marketing Courses. You can
+                        {process.env.NEXT_PUBLIC_WEBSITE_NAME} is an online platform for Digital Marketing Courses. You can
                         download knowledgeable courses from here and get PDFs for reading.
                     </p>
                 </div>
