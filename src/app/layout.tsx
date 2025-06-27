@@ -4,6 +4,7 @@ import { Poppins } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import Script from 'next/script';
 import { ClerkProvider } from '@clerk/nextjs';
+import { Analytics } from './analytics';
 
 /* ①  Load Poppins and expose it as a CSS variable */
 const poppins = Poppins({
@@ -30,7 +31,7 @@ export default function RootLayout({
       <head>
         <Script
           strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+          src="https://www.googletagmanager.com/gtag/js?id=G-T817RCNV7R"
         />
         <Script
           id="google-analytics"
@@ -55,6 +56,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <Analytics />
             {children}
           </ThemeProvider>
         </ClerkProvider>
