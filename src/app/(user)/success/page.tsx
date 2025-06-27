@@ -4,9 +4,14 @@ import { stripe } from '@/lib/stripe';
 export default async function SuccessPage({
   searchParams,
 }: {
-  searchParams: { session_id: string };
+  searchParams: Promise<{ session_id?: string }>; // Define searchParams as a Promise
 }) {
-  const sessionId = searchParams?.session_id;
+  const resolvedSearchParams = await searchParams; // Resolve the Promise
+  const sessionId = resolvedSearchParams?.session_id;
+
+  if (!sessionId) {
+    throw new Error('Session ID is required');
+  }
 
   const session = await stripe.checkout.sessions.retrieve(sessionId);
 

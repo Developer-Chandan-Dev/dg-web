@@ -19,8 +19,8 @@ type PDF = {
     title: string;
     description: string;
     price: number;
-    file_url: string;
-    image_url: string;
+    thumbnail: string;
+    created_At: string;
 };
 
 export function AdminPDFTable() {
@@ -31,7 +31,17 @@ export function AdminPDFTable() {
     useEffect(() => {
         (async () => {
             const data = await getAllCourses({title: ""});
-            setPdfs(data || []);
+            console.log(data, 34);
+            setPdfs(
+                (data || []).map((item) => ({
+                    id: item.id,
+                    title: item.title,
+                    description: item.description,
+                    price: item.price,
+                    thumbnail: item.thumbnail_url, // Map thumbnail_url to thumbnail
+                    created_At: item.created_at
+                }))
+            );
             setLoading(false);
         })();
     }, []);
@@ -42,7 +52,7 @@ export function AdminPDFTable() {
         if (!confirm("Are you sure you want to delete this PDF?")) return;
         const res = await deletePdfCourseAction(id);
 
-        if (res.success) setPdfs((prev) => prev.filter((pdf) => pdf.id !== id));
+        if (res.success) setPdfs((prev) => prev.filter((pdf) => pdf.id !== Number(id)));
         else alert("Failed to delete PDF.");
     };
 
@@ -82,7 +92,7 @@ export function AdminPDFTable() {
                                 >
                                     <Download/>
                                 </Button>
-                                <Button variant="destructive" className="cursor-pointer" onClick={() => handleDelete(pdf.id)}>
+                                <Button variant="destructive" className="cursor-pointer" onClick={() => handleDelete(String(pdf.id))}>
                                     <Trash2/>
                                 </Button>
                                 <Button
@@ -100,7 +110,7 @@ export function AdminPDFTable() {
 
         {selectedPdf && (
             <CourseUpdationDialog
-                pdf={selectedPdf}
+                pdf={{ ...selectedPdf, id: String(selectedPdf.id), price: String(selectedPdf.price) }}
                 onClose={() => setSelectedPdf(null)}
             />
         )}

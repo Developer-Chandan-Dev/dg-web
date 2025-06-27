@@ -10,6 +10,10 @@ export async function POST(req: NextRequest) {
     const headersList = await headers();
     const signature = headersList.get('stripe-signature');
 
+    if (!signature) {
+      throw new Error('Stripe signature is not defined');
+    }
+
     if (!process.env.STRIPE_WEBHOOK_SECRET) {
       throw new Error('Stripe webhook secret is not defined');
     }

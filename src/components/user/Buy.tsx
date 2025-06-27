@@ -30,7 +30,7 @@ export const Buy = ({ pdfId, price, userId }: BuyProps) => {
       });
 
       if (!res.ok) {
-        throw new Error('Failed to create checkout session', res.status);
+        throw new Error(`Failed to create checkout session. Status code: ${res.status}`);
       }
 
       // 2) Redirect to Stripe-Checkout Page

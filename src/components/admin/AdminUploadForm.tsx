@@ -18,7 +18,9 @@ export function AdminUploadForm() {
         const formData = new FormData();
 
         formData.append("file", file);
-        formData.append("thumbnail", thumbnail); // ✅ correct key
+        if (thumbnail) {
+            formData.append("thumbnail", thumbnail); // ✅ correct key
+        }
         formData.append("title", title);
         formData.append("description", description);
         formData.append("price", price);

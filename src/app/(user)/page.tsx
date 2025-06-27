@@ -16,7 +16,7 @@ const Page = () => {
             {/*<SyncUser />*/}
             <section className={" w-full text-var(--home-foreground)"}>
                 <HeroSection/>
-
+    
                 <section className={"py-20 w-full h-auto "}>
                     <div className={"flex items-center lg:w-[1200px] justify-center flex-col w-full text-center mx-auto "}>
                         <div className={"w-full lg:w-[50%]"}>
@@ -36,18 +36,18 @@ const Page = () => {
                                     />
                                 ))
                             }
-
-
+    
+    
                         </div>
                     </div>
                 </section>
-
+    
                 <FeaturedCourses/>
-
+    
                 <section className={"py-20 w-full h-auto bg-white dark:bg-transparent "}>
                     <div
                         className={"flex items-center lg:w-[1200px] justify-center w-full mx-auto gap-10 text-left flex-wrap"}>
-
+    
                         <div className={"px-5 md:px-5 w-full md:w-[90%] lg:w-[50%]"}>
                             <h2 className={"py-4"}>Why you need <br/> <span
                                 className={"gradient-text"}>Digital Marketing</span>
@@ -66,31 +66,31 @@ const Page = () => {
                                 icon={<Globe
                                     className={"w-12 text-[#96c4fa] h-12 p-3 mb-2 bg-[#0000000a] dark:bg-[#ffffff12] rounded-[6px] flex items-center justify-center"}/>}
                                 text={"Themes"}
-                                bg={"#866cc4"}/>
+                                />
                             <SmallCard
                                 icon={<Lightbulb
                                     className={"w-12 text-[#96c4fa] h-12 p-3 mb-2 bg-[#0000000a] dark:bg-[#ffffff12] rounded-[6px] flex items-center justify-center"}/>}
                                 text={"Local History"}
-                                bg={"#f2aa0c"}/>
+                                />
                             <SmallCard
-
+    
                                 icon={<Settings
                                     className={"w-12 text-[#96c4fa] h-12 p-3 mb-2 bg-[#0000000a] dark:bg-[#ffffff12] rounded-[6px] flex items-center justify-center"}/>}
                                 text={"Web Support"}
-                                bg={"#97beda"}/>
+                                />
                             <SmallCard
-
+    
                                 icon={<MapPinned
                                     className={"w-12 text-[#96c4fa] h-12 p-3 mb-2 bg-[#0000000a] dark:bg-[#ffffff12] rounded-[6px] flex items-center justify-center"}/>}
                                 text={"Accessbility"}
                                 // text={"MARKETING STRATEGY & SEO CAMPAIGNS"}
-                                bg="#94d491"/>
-
+                                />
+    
                         </div>
                     </div>
-
+    
                 </section>
-
+    
                 <section className={"py-20 w-full h-auto "}>
                     <div className={"flex items-center lg:w-[1200px] justify-center flex-col w-full text-center mx-auto "}>
                         <div className={"w-full lg:w-[50%]"}>
@@ -103,12 +103,12 @@ const Page = () => {
                         </div>
                         <div className={"w-full px-10 py-10"}>
                             <HomeCarousel/>
-
+    
                         </div>
                     </div>
                 </section>
-
-
+    
+    
                 <section className="body-font bg-[var(--background)] text-[var(--foreground)] ">
                     <div className="container px-5 py-24 mx-auto">
                         <h2 className=" title-font text-gray-900 dark:text-gray-100 mb-12 text-center">Testi<span
@@ -118,7 +118,7 @@ const Page = () => {
                                 <TestimonialCard key={index} {...testimonial}/>
                             ))}
                             <div className={"w-full flex items-center justify-center mt-5"}>
-
+    
                                 <CustomButton size={"sm"} className={"mx-auto"}>Explore more...</CustomButton>
                             </div>
                         </div>

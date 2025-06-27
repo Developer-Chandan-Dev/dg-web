@@ -1,9 +1,11 @@
 // utils/roles.ts
-import { auth, clerkClient } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
+import { clerkClient } from "@clerk/clerk-sdk-node";
+
+// clerkClient is already imported correctly
 
 export async function checkRole(roleToMatch: string): Promise<boolean> {
   const { userId } = await auth();
-
   if (!userId) return false;
 
   const user = await clerkClient.users.getUser(userId);

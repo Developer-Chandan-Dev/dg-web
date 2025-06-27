@@ -9,7 +9,7 @@ import gsap from 'gsap';
  * @param {number} speed - Speed factor (1 = normal, <1 = slower, >1 = faster) (default: 0.5)
  */
 const BubbleField = ({ count = 30, speed = 0.5 }) => {
-    const containerRef = useRef(null);
+    const containerRef = useRef<HTMLDivElement | null>(null);
 
     useLayoutEffect(() => {
         const container = containerRef.current;
