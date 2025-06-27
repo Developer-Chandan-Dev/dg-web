@@ -20,8 +20,8 @@ const Page = () => {
                 <HeroSection/>
     
                 <section className={"py-20 w-full h-auto "}>
-                    <div className={"flex items-center lg:w-[1200px] justify-center flex-col w-full text-center mx-auto "}>
-                        <div className={"w-full lg:w-[50%]"}>
+                    <div className={"flex items-center xl:w-[1200px] justify-center flex-col w-full text-center mx-auto "}>
+                        <div className={"w-11/12 md:w-[50%]"}>
                             <h2 className={"py-3"}>Grow With Our <span
                                 className={"gradient-text"}>Digital<br/> Marketing Experts</span>
                             </h2>
@@ -29,7 +29,7 @@ const Page = () => {
                                 animi consectetur dignissimos, eius, facere harum id iure, nobis numquam odit quae qui quia
                                 tempora tenetur voluptatibus.</p>
                         </div>
-                        <div className={"flex items-center justify-center gap-4 py-10 flex-wrap mx-auto"}>
+                        <div className={"flex items-center justify-center gap-4 max-xl:px-5 py-10 flex-wrap mx-auto"}>
                             {
                                 ourExperts.map((expert) => (
                                     <MediumCard
@@ -48,7 +48,7 @@ const Page = () => {
     
                 <section className={"py-20 w-full h-auto bg-white dark:bg-transparent "}>
                     <div
-                        className={"flex items-center lg:w-[1200px] justify-center w-full mx-auto gap-10 text-left flex-wrap"}>
+                        className={"flex items-center xl:w-[1200px] justify-center w-full mx-auto gap-10 text-left flex-wrap"}>
     
                         <div className={"px-5 md:px-5 w-full md:w-[90%] lg:w-[50%]"}>
                             <h2 className={"py-4"}>Why you need <br/> <span
@@ -94,8 +94,8 @@ const Page = () => {
                 </section>
     
                 <section className={"py-20 w-full h-auto "}>
-                    <div className={"flex items-center lg:w-[1200px] justify-center flex-col w-full text-center mx-auto "}>
-                        <div className={"w-full lg:w-[50%]"}>
+                    <div className={"flex items-center xl:w-[1200px] justify-center flex-col w-full text-center mx-auto "}>
+                        <div className={"w-11/12 md:w-[50%]"}>
                             <h2 className={"py-3"}>Our Modern Office<span
                                 className={"gradient-text"}> Space</span>
                             </h2>
@@ -103,7 +103,7 @@ const Page = () => {
                                 animi consectetur dignissimos, eius, facere harum id iure, nobis numquam odit quae qui quia
                                 tempora tenetur voluptatibus.</p>
                         </div>
-                        <div className={"w-full px-10 py-10"}>
+                        <div className={" w-full sm:w-11/12 mx-auto px-2 sm:px-10 py-10"}>
                             <HomeCarousel/>
     
                         </div>

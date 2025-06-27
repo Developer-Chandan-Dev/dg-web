@@ -37,8 +37,8 @@ const HomeCarousel = () => {
                     </CarouselItem>
                 ))}
             </CarouselContent>
-            <CarouselPrevious/>
-            <CarouselNext/>
+            <CarouselPrevious className="max-sm:absolute max-sm:left-5 cursor-pointer max-sm:z-10 max-sm:!bg-orange-500" />
+            <CarouselNext  className="max-sm:absolute max-sm:right-5 cursor-pointer max-sm:z-10 max-sm:!bg-orange-500"/>
         </Carousel>
     )
 }

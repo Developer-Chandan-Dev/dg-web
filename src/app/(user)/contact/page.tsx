@@ -18,7 +18,7 @@ const ContactPage = () => {
 
             </div>
 
-            <div className={"flex items-center justify-between w-full gap-3"}>
+            <div className={"flex items-center justify-center w-full gap-5 flex-wrap px-5"}>
                 <div className={"feature-card w-64 flex-center flex-col"}>
                     <div
                         className={"flex-center bg-cyan-500 text-white size-10 rounded-full shadow-xl shadow-cyan-700 transition-all hover:shadow-[0px_0px_25px_cyan] hover:-translate-y-1"}

@@ -9,8 +9,8 @@ const FeaturedCourses = async () => {
 
   return (
     <section className="py-20 w-full h-auto">
-      <div className="flex items-center lg:w-[1200px] justify-center flex-col w-full text-center mx-auto">
-        <div className="w-full lg:w-[50%]">
+      <div className="flex items-center xl:w-[1200px] justify-center flex-col w-full text-center mx-auto">
+      <div className={"w-11/12 md:w-[50%]"}>
           <h2 className="py-3">
             Featured Digital{' '}
             <span className="gradient-text">
