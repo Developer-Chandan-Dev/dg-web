@@ -4,14 +4,14 @@ import Link from "next/link";
 
 export const dynamic = 'force-dynamic' // OR omit if you remove all dynamic logic
 
-export default async function ServicesPage() {
+export default async function CoursesPage() {
     const pdfs = await getAllCourses({ title: "" });
 
     return (
         <section className="w-full xl:w-[1200px] h-auto mx-auto">
             <div className="flex h-96 items-center justify-center flex-col w-full text-center mx-auto">
                 <div className="w-[90%] sm:w-[60%] lg:w-[50%]">
-                    <h1 className="py-3">Services Page</h1>
+                    <h1 className="py-3">Courses Page</h1>
                     <p className="py-2">
                         {process.env.NEXT_PUBLIC_WEBSITE_NAME} is an online platform for Digital Marketing Courses. You can
                         download knowledgeable courses from here and get PDFs for reading.
@@ -25,7 +25,7 @@ export default async function ServicesPage() {
                         key={course.id}
                         className="feature-card w-72 px-5 h-auto pt-6 pb-4 flex-center text-center"
                     >
-                        <Link href={`/services/${course.id}`}>
+                        <Link href={`/courses/${course.id}`}>
                             <Image
                                 src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/pdfs/${course.thumbnail_url}`}
                                 alt={course.title}

@@ -27,7 +27,7 @@ const FeaturedCourses = async () => {
         <div className="flex items-center justify-center w-full gap-4 py-10 flex-wrap">
           {featuredCourses?.map(
             (course: { id: string; title: string; thumbnail_url?: string }) => (
-              <Link key={course.id} href={`/services/${course.id}`}>
+              <Link key={course.id} href={`/courses/${course.id}`}>
                 <div className="feature-card w-72 px-5 h-auto pt-6 pb-4 flex-center text-center cursor-pointer">
                   <Image
                     src={
@@ -47,7 +47,7 @@ const FeaturedCourses = async () => {
           )}
         </div>
         <div>
-          <Link href={'/services'}>
+          <Link href={'/courses'}>
             <CustomButton>Explore more...</CustomButton>
           </Link>
         </div>

@@ -5,12 +5,32 @@ import { IndianRupee } from 'lucide-react';
 import { auth } from '@clerk/nextjs/server';
 import { hasUserPurchased } from '@/lib/actions/purchases.action';
 import { Download } from '@/components/user/Download';
+import { Metadata } from 'next';
 
-interface Params {
-  id: string;
+interface Props {
+  params: { id: string };
 }
 
-const CoursePage = async ({ params }: { params: Params }) => {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const course = await getCourseById(params.id);
+
+  return {
+    title: course?.title + ' - Courses' || 'Course | Skillsbazzar2',
+    description: course?.description || 'Detailed course information.',
+    openGraph: {
+      title: course?.title,
+      description: course?.description,
+      images: [
+        {
+          url: course?.thumbnail_url
+            ? `${process.env.NEXT_PUBLIC_SUPABASE_STORAGE_URL}/pdfs/${course.thumbnail_url}`
+            : '/images/preview-image.webp',
+        },
+      ],
+    },
+  };
+}
+const CoursePage = async ({ params }: Props) => {
   const pdf = await getCourseById(params.id);
   const { userId } = await auth(); // ✅ Correctly extract userId from Clerk
 

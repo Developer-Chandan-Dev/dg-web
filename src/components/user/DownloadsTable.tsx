@@ -67,7 +67,7 @@ export default function DownloadsTable({ userId }: { userId: string }) {
         {pdfs.map((item) => (
           <TableRow key={item.purchasedId}>
             <TableCell>
-              <Link href={`/services/${item.pdfId}`}>
+              <Link href={`/courses/${item.pdfId}`}>
                 <img
                   src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/pdfs/${item.thumbnailUrl}`}
                   alt={item.title}
@@ -76,7 +76,7 @@ export default function DownloadsTable({ userId }: { userId: string }) {
               </Link>
             </TableCell>
             <TableCell>
-              <Link href={`/services/${item.pdfId}`}>{item.title}</Link>
+              <Link href={`/courses/${item.pdfId}`}>{item.title}</Link>
             </TableCell>
             <TableCell className="text-right">₹ {item.price}</TableCell>
             <TableCell>

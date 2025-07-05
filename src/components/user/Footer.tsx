@@ -71,10 +71,10 @@ const Footer = async () => {
               </li>
               <li>
                 <Link
-                  href={'/services'}
+                  href={'/courses'}
                   className="text-gray-600 hover:text-gray-800"
                 >
-                  Services
+                  Courses
                 </Link>
               </li>
               {isAdmin && (
