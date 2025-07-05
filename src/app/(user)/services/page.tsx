@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getAllCourses } from "@/lib/actions/dg.actions";
+import { getAllCourses } from "@/lib/actions/pdf_courses.actions";
 import Link from "next/link";
 
 export const dynamic = 'force-dynamic' // OR omit if you remove all dynamic logic

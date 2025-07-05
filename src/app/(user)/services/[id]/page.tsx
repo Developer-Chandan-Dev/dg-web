@@ -1,13 +1,22 @@
 import Image from 'next/image';
 import { Buy } from '@/components/user/Buy';
-import { getCourseById } from '@/lib/actions/dg.actions';
+import { getCourseById } from '@/lib/actions/pdf_courses.actions';
 import { IndianRupee } from 'lucide-react';
 import { auth } from '@clerk/nextjs/server';
+import { hasUserPurchased } from '@/lib/actions/purchases.action';
+import { Download } from '@/components/user/Download';
 
-const CoursePage = async ({ params }: { params: Promise<{ id: string }> }) => {
-  const resolvedParams = await params; // Resolve the params if it's a Promise
-  const pdf = await getCourseById(resolvedParams.id);
+interface Params {
+  id: string;
+}
+
+const CoursePage = async ({ params }: { params: Params }) => {
+  const pdf = await getCourseById(params.id);
   const { userId } = await auth(); // ✅ Correctly extract userId from Clerk
+
+  const alreadyPurchased = pdf?.id
+    ? await hasUserPurchased(userId || '', pdf.id)
+    : false;
 
   return (
     <section className="w-full xl:w-[1200px] h-auto mx-auto">
@@ -16,8 +25,9 @@ const CoursePage = async ({ params }: { params: Promise<{ id: string }> }) => {
           <div className="lg:w-[45%] flex items-center justify-center flex-col">
             <Image
               src={
-                `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/pdfs/${pdf?.thumbnail_url}` ||
-                '/images/courses/affiliate-marketing.jpg'
+                pdf?.thumbnail_url
+                  ? `${process.env.NEXT_PUBLIC_SUPABASE_STORAGE_URL}/pdfs/${pdf.thumbnail_url}`
+                  : '/images/preview-image.webp'
               }
               className="rounded-full max-lg:mx-auto w-[300px] p-2 ring-5 ring-cyan-500 shadow-lg shadow-cyan-700"
               alt="PDF Thumbnail"
@@ -28,17 +38,30 @@ const CoursePage = async ({ params }: { params: Promise<{ id: string }> }) => {
               <div className="flex items-center gap-4 justify-center flex-col pb-2 mt-4">
                 <p className="py-1 flex items-center gap-x-[2px]">
                   <IndianRupee className="size-4" />
-                  <span>{pdf?.price || 'Not Added'}.00</span>
+                  <span>{pdf?.price ? `${pdf.price}.00` : 'Not Added'}</span>
                 </p>
-                <Buy pdfId={pdf?.id} price={pdf?.price} userId={userId} />{' '}
-                {/* ✅ Pass userId */}
+                {!userId ? (
+                  <p className="text-red-500">
+                    Please sign in to buy this course.
+                  </p>
+                ) : alreadyPurchased ? (
+                  <Download pdfUrl={pdf?.file_url || ''} />
+                ) : (
+                  <Buy
+                    pdfId={pdf?.id || ''}
+                    price={pdf?.price || 0}
+                    userId={userId}
+                  />
+                )}
               </div>
             </div>
           </div>
 
           <div className="lg:w-[45%]">
             <h2 className="py-3 max-lg:mt-5">{pdf?.title || 'Course Title'}</h2>
-            <p className="py-2">{pdf?.description}</p>
+            <p className="py-2">
+              {pdf?.description || 'No description available.'}
+            </p>
           </div>
         </div>
       </div>

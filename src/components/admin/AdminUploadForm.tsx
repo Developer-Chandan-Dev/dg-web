@@ -1,9 +1,9 @@
 "use client";
-import { uploadPdfAction } from "@/lib/actions/dg.actions";
 import {useState, useTransition} from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {Textarea} from "@/components/ui/textarea";
+import { createNewCourse } from "@/lib/actions/pdf_courses.actions";
 
 export function AdminUploadForm() {
     const [pending, startTransition] = useTransition();
@@ -25,12 +25,12 @@ export function AdminUploadForm() {
         formData.append("description", description);
         formData.append("price", price);
 
-        for (const [key, value] of formData.entries()) {
-            console.log(`${key}:`, value);
-        }
+        // for (const [key, value] of formData.entries()) {
+        //     console.log(`${key}:`, value);
+        // }
 
         startTransition(() => {
-            uploadPdfAction(formData)
+            createNewCourse(formData)
                 .then(() => {
                     alert("Uploaded ✅");
                     setThumbnail(null);

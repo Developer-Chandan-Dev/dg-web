@@ -35,8 +35,6 @@ export async function POST(req: Request) {
       },
     });
 
-    console.log(pdfId, userId, 38);
-
     // 3) Return the session URL
     return NextResponse.json({ url: session.url });
   } catch (error) {

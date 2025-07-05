@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { getAllCourses } from '@/lib/actions/dg.actions';
+import { getAllCourses } from '@/lib/actions/pdf_courses.actions';
 import Link from 'next/link';
 import CustomButton from '@/components/user/CustomButton';
 
@@ -10,7 +10,7 @@ const FeaturedCourses = async () => {
   return (
     <section className="py-20 w-full h-auto">
       <div className="flex items-center xl:w-[1200px] justify-center flex-col w-full text-center mx-auto">
-      <div className={"w-11/12 md:w-[50%]"}>
+        <div className={'w-11/12 md:w-[50%]'}>
           <h2 className="py-3">
             Featured Digital{' '}
             <span className="gradient-text">
@@ -29,7 +29,7 @@ const FeaturedCourses = async () => {
             (course: { id: string; title: string; thumbnail_url?: string }) => (
               <Link key={course.id} href={`/services/${course.id}`}>
                 <div className="feature-card w-72 px-5 h-auto pt-6 pb-4 flex-center text-center cursor-pointer">
-                <Image
+                  <Image
                     src={
                       course.thumbnail_url
                         ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/pdfs/${course.thumbnail_url}`

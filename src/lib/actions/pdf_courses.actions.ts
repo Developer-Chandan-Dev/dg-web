@@ -1,11 +1,12 @@
 'use server';
+
 import { auth } from '@clerk/nextjs/server';
-import { createSupabaseClient } from '@/lib/supabase';
 import { createClient } from '@supabase/supabase-js';
+import { createSupabaseClient } from '../supabase';
 import { clerkClient } from '@clerk/clerk-sdk-node';
 
-// Action for uploading pdfs
-export async function uploadPdfAction(formData: FormData) {
+// Action for creating new course
+export async function createNewCourse(formData: FormData) {
   const { userId } = await auth();
   if (!userId) throw new Error('Unauthorized');
 
@@ -60,7 +61,7 @@ export async function uploadPdfAction(formData: FormData) {
     price,
     file_url: uploaded?.path,
     thumbnail_url,
-    // created_by: userId,
+    author: userId,
   });
 
   if (dbError) throw new Error(dbError.message);
@@ -97,83 +98,24 @@ export const getAllCourses = async ({
 export const getCourseById = async (id: string) => {
   const supabase = createSupabaseClient();
   const { data: pdf, error } = await supabase
-    .from('pdf_courses')
-    .select(
-      'id, title, description, price, thumbnail_url, created_at, file_url'
-    )
-    .match({ disabled: false, id: id });
+      .from("pdf_courses")
+      .select("id, title, description, price, thumbnail_url, created_at, file_url")
+      .match({ disabled: false, "id": id });
 
   if (error) throw new Error(error.message);
   return pdf[0]; // always return single result
 };
 
-// Action for purchase pdfs
-export const purchasePdfAction = async (pdfId: string) => {
+// Action for updating a course
+export async function updateCourse(id: string, formData: FormData) {
   const { userId } = await auth();
-
   if (!userId) throw new Error('Unauthorized');
 
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+  // ✅ Fetch role from Clerk
+  const user = await clerkClient.users.getUser(userId);
+  const role = user?.publicMetadata?.role;
 
-  const { error } = await supabase.from('purchases').insert({
-    user_id: userId,
-    pdf_id: pdfId,
-  });
-
-  if (error) throw new Error(error.message);
-
-  return { success: true };
-};
-
-export const downloadPdfAction = async (pdfId: string) => {
-  const { userId } = await auth();
-
-  if (!userId) throw new Error('Unauthorized');
-
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
-
-  const { data: purchase } = await supabase
-    .from('purchases')
-    .select()
-    .eq('user_id', userId)
-    .eq('pdf_id', pdfId)
-    .single();
-
-  if (!purchase) throw new Error('Not purchased');
-
-  const { data: pdf } = await supabase
-    .from('pdf_courses')
-    .select('file_url')
-    .eq('id', pdfId)
-    .single();
-
-  if (!pdf) throw new Error('PDF not found');
-
-  const { data: url } = await supabase.storage
-    .from('pdfs')
-    .createSignedUrl(pdf.file_url, 120); // valid 120 sec
-
-  if (!url) throw new Error('Failed to generate link');
-
-  return { url: url.signedUrl };
-};
-
-// Action for updating pdfs
-export async function updatePdfCourseAction(id: string, formData: FormData) {
-    const { userId } = await auth();
-    if (!userId) throw new Error('Unauthorized');
-  
-    // ✅ Fetch role from Clerk
-    const user = await clerkClient.users.getUser(userId);
-    const role = user?.publicMetadata?.role;
-  
-    if (role !== "admin") throw new Error("Unauthorized");
+  if (role !== "admin") throw new Error("Unauthorized");
 
   const title = formData.get('title') as string;
   const description = formData.get('description') as string;
@@ -259,16 +201,17 @@ export async function updatePdfCourseAction(id: string, formData: FormData) {
   return { success: true };
 }
 
-// Action for deleting a PDF course
-export async function deletePdfCourseAction(id: string) {
-    const { userId } = await auth();
-    if (!userId) throw new Error('Unauthorized');
-  
-    // ✅ Fetch role from Clerk
-    const user = await clerkClient.users.getUser(userId);
-    const role = user?.publicMetadata?.role;
-  
-    if (role !== "admin") throw new Error("Unauthorized");
+// Action for deleting a course
+export async function deleteCourse(id: string) {
+  const { userId } = await auth();
+  if (!userId) throw new Error('Unauthorized');
+  console.log(id, '208');
+
+  // ✅ Fetch role from Clerk
+  const user = await clerkClient.users.getUser(userId);
+  const role = user?.publicMetadata?.role;
+
+  if (role !== "admin") throw new Error("Unauthorized");
 
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

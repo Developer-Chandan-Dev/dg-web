@@ -14,7 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { SquarePen } from 'lucide-react';
 import { useEffect, useState, useTransition } from 'react';
-import { updatePdfCourseAction } from '@/lib/actions/dg.actions';
+import { updateCourse } from '@/lib/actions/pdf_courses.actions';
 
 export function CourseUpdationDialog({
   pdf,
@@ -46,7 +46,7 @@ export function CourseUpdationDialog({
     formData.append('price', price);
 
     startTransition(() => {
-      updatePdfCourseAction(pdf.id, formData)
+      updateCourse(pdf.id, formData)
         .then(() => alert('Updated ✅'))
         .catch((err) => alert(err.message))
         .finally(() => {

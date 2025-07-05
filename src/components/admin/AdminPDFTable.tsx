@@ -11,11 +11,12 @@ import {
 } from "@/components/ui/table";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {Loader2, Download, Trash2, SquarePen} from "lucide-react";
-import {deletePdfCourseAction, getAllCourses} from "@/lib/actions/dg.actions";
+import {getAllCourses} from "@/lib/actions/pdf_courses.actions";
+import { deleteCourse } from "@/lib/actions/pdf_courses.actions";
 import {CourseUpdationDialog} from "@/components/admin/CourseUpdationDialog";
 
 type PDF = {
-    id: number;
+    id: string;
     title: string;
     description: string;
     price: number;
@@ -31,7 +32,7 @@ export function AdminPDFTable() {
     useEffect(() => {
         (async () => {
             const data = await getAllCourses({title: ""});
-            console.log(data, 34);
+
             setPdfs(
                 (data || []).map((item) => ({
                     id: item.id,
@@ -50,9 +51,9 @@ export function AdminPDFTable() {
 
     const handleDelete = async (id: string) => {
         if (!confirm("Are you sure you want to delete this PDF?")) return;
-        const res = await deletePdfCourseAction(id);
+        const res = await deleteCourse(id);
 
-        if (res.success) setPdfs((prev) => prev.filter((pdf) => pdf.id !== Number(id)));
+        if (res.success) setPdfs((prev) => prev.filter((pdf) => pdf.id !== id));
         else alert("Failed to delete PDF.");
     };
 
