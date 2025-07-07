@@ -8,7 +8,7 @@ import {
   TableBody,
   TableCell,
 } from '@/components/ui/table';
-import { getPurchasedCourses } from '@/lib/actions/purchases.action';
+import { getPurchasedCoursesById } from '@/lib/actions/purchases.action';
 import { Download, Loader2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
@@ -29,7 +29,7 @@ export default function DownloadsTable({ userId }: { userId: string }) {
 
   useEffect(() => {
     (async () => {
-      const data = await getPurchasedCourses(userId);
+      const data = await getPurchasedCoursesById(userId);
       
       setPdfs(
         (data || []).map((item) => ({

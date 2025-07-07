@@ -82,8 +82,8 @@ type PurchasedCourse = {
     id: string;
     title: string;
     price: number;
-    // thumbnail_url: string;
-    // file_url: string;
+    thumbnail_url: string;
+    file_url: string;
   };
 };
 
@@ -106,8 +106,8 @@ export async function getPurchasedCoursesById(userId: string) {
     purchasedAt: item.purchased_at,
     title: item.pdf_courses.title,
     price: item.pdf_courses.price,
-    // thumbnailUrl: item.pdf_courses.thumbnail_url,
-    // downloadUrl: item.pdf_courses.file_url,
+    thumbnailUrl: item.pdf_courses.thumbnail_url,
+    downloadUrl: item.pdf_courses.file_url,
   }));
 }
 
