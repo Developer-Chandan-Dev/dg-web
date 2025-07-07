@@ -11,12 +11,14 @@ import {
     ChevronsLeft,
     ChevronsRight,
     X, PanelRight,
+    ShoppingBag,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const sidebarItems = [
     { name: 'Dashboard', icon: Home, href: '/admin' },
     { name: 'Users', icon: Users, href: '/admin/users' },
+    { name: 'Sales', icon: ShoppingBag, href: '/admin/sales' },
     { name: 'Analytics', icon: BarChart3, href: '/admin/analytics' },
     { name: 'Settings', icon: Settings, href: '/admin/settings' },
 ]

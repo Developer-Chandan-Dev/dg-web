@@ -21,7 +21,7 @@ export default async function AdminDashboard(params: {
 
   return (
     <>
-      <div>
+      {/* <div>
         <p>This is the protected admin dashboard restricted to users with the `admin` role.</p>
         <SearchUsers />
 
@@ -57,10 +57,9 @@ export default async function AdminDashboard(params: {
             </div>
           );
         })}
-      </div>
+      </div> */}
 
       <AdminUploadForm />
-
       <AdminPDFTable />
     </>
   );

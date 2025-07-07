@@ -76,21 +76,23 @@ export const hasUserPurchased = async (userId: string, pdfId: string) => {
 
 type PurchasedCourse = {
   id: string; // purchase id
+  user_id: string; // user id
+  purchased_at: string, // purchase timestamp
   pdf_courses: {
     id: string;
     title: string;
     price: number;
-    thumbnail_url: string;
-    file_url: string;
+    // thumbnail_url: string;
+    // file_url: string;
   };
 };
 
-export async function getPurchasedCourses(userId: string) {
+export async function getPurchasedCoursesById(userId: string) {
   const supabase = createSupabaseClient();
 
   const { data, error } = await supabase
     .from('purchases')
-    .select('id, pdf_courses(id,title, price, thumbnail_url, file_url)')
+    .select('id, userId, purchased_at, pdf_courses(id,title, price)')
     .eq('user_id', userId);
 
   if (error) {
@@ -100,9 +102,34 @@ export async function getPurchasedCourses(userId: string) {
 
   return (data as unknown as PurchasedCourse[]).map((item) => ({
     purchaseId: item.id,
+    userId: item.user_id,
+    purchasedAt: item.purchased_at,
     title: item.pdf_courses.title,
     price: item.pdf_courses.price,
-    thumbnailUrl: item.pdf_courses.thumbnail_url,
-    downloadUrl: item.pdf_courses.file_url,
+    // thumbnailUrl: item.pdf_courses.thumbnail_url,
+    // downloadUrl: item.pdf_courses.file_url,
+  }));
+}
+
+export async function getPurchasedCourses() {
+  const supabase = createSupabaseClient();
+  console.log('Fetching all purchases');
+  const { data, error } = await supabase
+    .from('purchases')
+    .select('id, user_id, purchased_at, pdf_courses(id,title, price)');
+
+  if (error) {
+    console.error('Error fetching purchases:', error.message);
+    return [];
+  }
+  console.log(data, '121');
+  return (data as unknown as PurchasedCourse[]).map((item) => ({
+    purchaseId: item.id,
+    userId: item.user_id,
+    purchasedAt: item.purchased_at,
+    title: item.pdf_courses.title,
+    price: item.pdf_courses.price,
+    // thumbnailUrl: item.pdf_courses.thumbnail_url,
+    // downloadUrl: item.pdf_courses.file_url,
   }));
 }
