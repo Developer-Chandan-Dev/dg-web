@@ -92,7 +92,7 @@ export async function getPurchasedCoursesById(userId: string) {
 
   const { data, error } = await supabase
     .from('purchases')
-    .select('id, user_id, purchased_at, pdf_courses(id,title, price)')
+    .select('id, user_id, purchased_at, pdf_courses(id,title, price, thumbnail_url, file_url)')
     .eq('user_id', userId);
 
   if (error) {
@@ -103,6 +103,7 @@ export async function getPurchasedCoursesById(userId: string) {
   return (data as unknown as PurchasedCourse[]).map((item) => ({
     purchaseId: item.id,
     userId: item.user_id,
+    pdfId: item.pdf_courses.id,
     purchasedAt: item.purchased_at,
     title: item.pdf_courses.title,
     price: item.pdf_courses.price,
@@ -125,6 +126,7 @@ export async function getPurchasedCourses() {
   return (data as unknown as PurchasedCourse[]).map((item) => ({
     purchaseId: item.id,
     userId: item.user_id,
+    pdfId: item.pdf_courses.id,
     purchasedAt: item.purchased_at,
     title: item.pdf_courses.title,
     price: item.pdf_courses.price,

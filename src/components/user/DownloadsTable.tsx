@@ -30,11 +30,11 @@ export default function DownloadsTable({ userId }: { userId: string }) {
   useEffect(() => {
     (async () => {
       const data = await getPurchasedCoursesById(userId);
-      
+
       setPdfs(
         (data || []).map((item) => ({
           purchasedId: item.purchaseId,
-          pdfId: item.purchaseId, // Use purchaseId as pdfId
+          pdfId: item.pdfId,
           title: item.title,
           price: item.price.toString(), // Convert price to string
           thumbnailUrl: item.thumbnailUrl, // Correctly map thumbnailUrl
