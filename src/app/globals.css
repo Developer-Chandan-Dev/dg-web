@@ -168,7 +168,6 @@
         @apply text-gray-600 dark:text-gray-400 text-base;
     }
 
-
     p {
         @apply text-gray-600 dark:text-gray-400 leading-relaxed text-base;
     }

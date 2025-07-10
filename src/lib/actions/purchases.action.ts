@@ -92,13 +92,14 @@ export async function getPurchasedCoursesById(userId: string) {
 
   const { data, error } = await supabase
     .from('purchases')
-    .select('id, userId, purchased_at, pdf_courses(id,title, price)')
+    .select('id, user_id, purchased_at, pdf_courses(id,title, price)')
     .eq('user_id', userId);
 
   if (error) {
     console.error('Error fetching purchases:', error.message);
     return [];
   }
+  console.log(data, error, 102);
 
   return (data as unknown as PurchasedCourse[]).map((item) => ({
     purchaseId: item.id,
@@ -122,7 +123,6 @@ export async function getPurchasedCourses() {
     console.error('Error fetching purchases:', error.message);
     return [];
   }
-  console.log(data, '121');
   return (data as unknown as PurchasedCourse[]).map((item) => ({
     purchaseId: item.id,
     userId: item.user_id,
