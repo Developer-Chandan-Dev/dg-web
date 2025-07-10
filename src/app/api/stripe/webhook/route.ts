@@ -5,7 +5,6 @@ import { headers } from 'next/headers';
 import { createSupabaseClient } from '@/lib/supabase';
 
 export async function POST(req: NextRequest) {
-  console.log('Webhook received');
 
   const supabase = createSupabaseClient();
   try {

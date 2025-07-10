@@ -99,7 +99,6 @@ export async function getPurchasedCoursesById(userId: string) {
     console.error('Error fetching purchases:', error.message);
     return [];
   }
-  console.log(data, error, 102);
 
   return (data as unknown as PurchasedCourse[]).map((item) => ({
     purchaseId: item.id,
@@ -114,7 +113,7 @@ export async function getPurchasedCoursesById(userId: string) {
 
 export async function getPurchasedCourses() {
   const supabase = createSupabaseClient();
-  console.log('Fetching all purchases');
+
   const { data, error } = await supabase
     .from('purchases')
     .select('id, user_id, purchased_at, pdf_courses(id,title, price)');

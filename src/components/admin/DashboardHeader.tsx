@@ -7,8 +7,6 @@ import { SignedIn, UserButton } from '@clerk/nextjs';
 const DashboardHeader = () => {
   const pathname = usePathname();
 
-  console.log(pathname.split('/'));
-
   return (
     <div
       className={

@@ -43,7 +43,6 @@ const SalesTable = () => {
     })();
   }, []);
 
-  console.log(entries, 'entries');
 
   const handleDelete = (id: string) => {
     console.log("Purchased Id", id);
