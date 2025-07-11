@@ -5,10 +5,11 @@ import { headers } from 'next/headers';
 import { createSupabaseClient } from '@/lib/supabase';
 
 export async function POST(req: NextRequest) {
-
+  console.log("Webhook start", 8);
   const supabase = createSupabaseClient();
   try {
     const body = await req.text();
+    console.log(body, 12);
     const headersList = await headers();
     const signature = headersList.get('stripe-signature');
 
@@ -25,7 +26,7 @@ export async function POST(req: NextRequest) {
       signature,
       process.env.STRIPE_WEBHOOK_SECRET
     );
-
+    console.log("Event", event, 29);
     if (
       event.type === 'checkout.session.completed' ||
       event.type === 'checkout.session.async_payment_succeeded'
@@ -34,7 +35,7 @@ export async function POST(req: NextRequest) {
 
       const userId = session.metadata?.userId;
       const pdfId = session.metadata?.pdfId;
-
+      console.log(session, userId, pdfId, 38);
       if (userId && pdfId) {
         await supabase
           .from('purchases')
