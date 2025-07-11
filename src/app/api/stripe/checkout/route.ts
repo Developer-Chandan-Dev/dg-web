@@ -2,11 +2,12 @@ import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 
 export async function POST(req: Request) {
+  console.log("Checkout starts", 5);
   try {
     
     // 1) Get the price, pdfId, and userId from the request body
     const { price, pdfId, userId } = await req.json();
-
+    console.log(price, pdfId, userId, 10);
     if (!price || !pdfId || !userId) {
       return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
     }
@@ -34,7 +35,7 @@ export async function POST(req: Request) {
         userId,
       },
     });
-
+  console.log(session, 38);
     // 3) Return the session URL
     return NextResponse.json({ url: session.url });
   } catch (error) {
