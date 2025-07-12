@@ -1,122 +1,168 @@
 // app/api/stripe/webhook/route.ts
-import { NextRequest, NextResponse } from 'next/server';
-import { stripe } from '@/lib/stripe'; // Assuming this imports a configured Stripe instance
-import { headers } from 'next/headers'; // To get headers in App Router
-import { createSupabaseClient } from '@/lib/supabase'; // Your Supabase client setup
-import Stripe from 'stripe'; // Import Stripe types
+// This is a server-side API Route, so no 'use client' is needed.
 
-export async function POST(req: NextRequest) {
-  const supabase = createSupabaseClient();
-  let event: Stripe.Event; // Declare event variable here for broader scope
+import { NextRequest, NextResponse } from 'next/server';
+import { headers } from 'next/headers';
+import Stripe from 'stripe'; // Import Stripe library and its types
+import { createClient, SupabaseClient } from '@supabase/supabase-js'; // Import Supabase types
+
+// --- 1. Supabase Client Setup (Type-Safe and complete) ---
+// This function creates and returns a Supabase client configured for server-side use.
+const createSupabaseClient = (): SupabaseClient => {
+  // Ensure environment variables are present at build/runtime.
+  // Using '!' for non-null assertion as these should be set in .env.local/Vercel.
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+  const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+
+  if (!supabaseUrl || !supabaseServiceRoleKey) {
+    // In a real deployment, this error should prevent the server from starting or be caught during build.
+    // For a webhook, it's critical these are set.
+    throw new Error('Supabase environment variables (URL or Service Role Key) are not set.');
+  }
+
+  return createClient(
+    supabaseUrl,
+    supabaseServiceRoleKey,
+    {
+      auth: {
+        persistSession: false, // Prevents session storage on the server
+      },
+    }
+  );
+};
+
+// --- 2. Stripe Client Setup (Type-Safe) ---
+// Initialize the Stripe client with your secret key.
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  // Ensure your API version matches what you're using in your Stripe dashboard.
+  // This helps ensure type compatibility with Stripe's event objects.
+  apiVersion: '2024-06-20',
+});
+
+// --- 3. Main Webhook Handler ---
+export async function POST(req: NextRequest): Promise<NextResponse> {
+  const supabase: SupabaseClient = createSupabaseClient(); // Explicitly type the supabase client
 
   try {
-    // 1. Get the raw request body as text
-    // This is crucial for signature verification, as you've correctly implemented.
-    const body = await req.text();
-    console.log("Raw webhook body received:", body.substring(0, 500) + "..."); // Log first 500 chars for brevity
+    // A) Get the raw request body as a string. This is essential for Stripe's signature verification.
+    const rawBody: string = await req.text();
+    // For debugging, you might log a truncated version:
+    // console.log("Raw webhook body received (truncated):", rawBody.substring(0, 200) + "...");
 
-    // 2. Get the Stripe signature header
-    const signature = headers().get('stripe-signature');
-
+    // B) Get the Stripe signature header from the incoming request.
+    const signature: string | null = headers().get('stripe-signature');
     if (!signature) {
       console.error('Webhook Error: Stripe signature header is missing.');
       return NextResponse.json({ message: 'Stripe signature is missing.' }, { status: 400 });
     }
 
-    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+    // C) Retrieve the webhook secret from environment variables.
+    const webhookSecret: string | undefined = process.env.STRIPE_WEBHOOK_SECRET;
     if (!webhookSecret) {
-      console.error('Webhook Error: STRIPE_WEBHOOK_SECRET is not set in environment variables.');
-      // In a real application, you might want to throw an error during deployment if this is missing.
+      console.error('Webhook Error: STRIPE_WEBHOOK_SECRET environment variable is not set.');
+      // A 500 status indicates a server configuration error, not a client (Stripe) error.
       return NextResponse.json({ message: 'Server configuration error.' }, { status: 500 });
     }
 
-    // 3. Construct the event using Stripe.webhooks.constructEvent
-    // This function automatically verifies the signature and throws an error if invalid.
-    event = stripe.webhooks.constructEvent(
-      body,
+    // D) Construct the event using Stripe.webhooks.constructEvent.
+    // This function verifies the signature using the raw body and secret.
+    // If verification fails, it throws an error caught by the try/catch block.
+    const event: Stripe.Event = stripe.webhooks.constructEvent(
+      rawBody,
       signature,
       webhookSecret
     );
-    console.log("Webhook event received and verified:", event.type);
 
-    // 4. Handle the event based on its type
-    // Niche-specific: focusing on successful payments for course access
+    console.log(`Webhook Event Verified. Type: ${event.type}`);
+
+    // --- 4. Event-Specific Business Logic (Niche: Online Course Notes) ---
+
+    // Handle 'checkout.session.completed' and 'checkout.session.async_payment_succeeded' events.
+    // These indicate a successful purchase flow.
     if (
       event.type === 'checkout.session.completed' ||
       event.type === 'checkout.session.async_payment_succeeded'
     ) {
-      const session = event.data.object as Stripe.CheckoutSession; // Cast to specific Stripe type
-      console.log("Checkout Session Data:", JSON.stringify(session, null, 2));
+      // Cast the event data object to the specific Stripe type for full type safety.
+      const session: Stripe.CheckoutSession = event.data.object as Stripe.CheckoutSession;
 
-      // Extract metadata from the session
-      const userId = session.metadata?.userId as string | undefined; // Ensure type is string
-      const pdfId = session.metadata?.pdfId as string | undefined; // Ensure type is string
-      const customerEmail = session.customer_details?.email; // Get customer email for receipts/communication
-      const paymentIntentId = typeof session.payment_intent === 'string' ? session.payment_intent : session.payment_intent?.id;
+      // Extract metadata (userId, pdfId) you attached during session creation.
+      // Use optional chaining and nullish coalescing to safely get metadata properties.
+      const userId: string | undefined = session.metadata?.userId;
+      const pdfId: string | undefined = session.metadata?.pdfId;
+      const customerEmail: string | undefined = session.customer_details?.email; // Safely get customer email
 
+      console.log(`Processing Checkout Session: ID=${session.id}, User ID=${userId}, PDF ID=${pdfId}, Customer Email=${customerEmail}`);
 
-      console.log(`Extracted Metadata: userId=${userId}, pdfId=${pdfId}, email=${customerEmail}`);
-
+      // Crucial check: Ensure essential metadata is present for fulfillment.
       if (!userId || !pdfId) {
-        console.error('Webhook Error: Missing userId or pdfId in session metadata.');
-        // Consider alerting your team if essential metadata is missing.
-        return NextResponse.json({ message: 'Missing essential metadata.' }, { status: 400 });
+        console.error('Webhook Error: Missing userId or pdfId in checkout session metadata. Cannot fulfill purchase.');
+        // Return 200 to Stripe (payment was successful from their side), but log a critical error for your system.
+        return NextResponse.json({ message: 'Missing essential metadata for purchase fulfillment.' }, { status: 200 });
       }
 
-      // 5. Update your database to record the purchase and grant access
-      // Niche-specific: recording the purchase of a course note PDF
-      const { data: purchase, error } = await supabase
-        .from('purchases') // Your purchases table
-        .insert([
-          {
-            user_id: userId,
-            pdf_id: pdfId,
-            // stripe_session_id: session.id, // Store session ID for reference
-            // stripe_payment_intent_id: paymentIntentId, // Store Payment Intent ID
-            // amount_total: session.amount_total, // Store amount paid (in cents/paise)
-            // currency: session.currency, // Store currency
-            // customer_email: customerEmail, // Store customer email
-            // Add any other relevant details like payment status, timestamp, etc.
-          },
-        ])
-        .select() // Select the inserted row to confirm
-        .single(); // Expecting a single row inserted
+      // Record the purchase in your Supabase database.
+      // This is where you grant access to the course notes.
+      const { data: purchaseData, error: insertError } = await supabase
+        .from('purchases') // Your Supabase table name for purchases
+        .insert({
+          user_id: userId,
+          pdf_id: pdfId,
+          // stripe_session_id: session.id, // Store Stripe Session ID for reference
+          // amount_paid: session.amount_total, // Store amount in smallest currency unit (e.g., cents)
+          // currency: session.currency,
+          // customer_email: customerEmail, // Store for receipts/communication
+          // purchase_date: new Date().toISOString(), // Store the purchase timestamp
+          // Add other relevant purchase details as per your 'purchases' table schema
+        })
+        .select() // Select the inserted row
+        .single(); // Expect a single row to be inserted
 
-      if (error) {
-        console.error('Supabase Error (recording purchase):', error.message);
-        // Important: If this fails, the user might not get access.
-        // Consider a retry mechanism or alert system.
-        return NextResponse.json({ message: 'Failed to record purchase in database.' }, { status: 500 });
+      if (insertError) {
+        console.error('Supabase Error (recording purchase):', insertError.message);
+        // Again, return 200 to Stripe but log this as a critical internal error.
+        return NextResponse.json({ message: 'Failed to record purchase in database.' }, { status: 200 });
       }
 
-      console.log("Purchase recorded successfully:", purchase);
+      console.log('Purchase recorded successfully:', purchaseData);
 
-      // Niche-specific: Trigger additional actions after successful purchase
-      // - Send a thank you email with download link (using a separate service like Nodemailer, Resend, or SendGrid)
-      // - Invalidate a cache for user's courses
-      // - Update user's accessible courses list in your frontend if using real-time updates
-    } else if (event.type === 'invoice.payment_succeeded') {
-        // This is important if you introduce subscriptions later.
-        // For one-time purchases, checkout.session.completed is usually sufficient.
-        const invoice = event.data.object as Stripe.Invoice;
-        console.log(`Invoice payment succeeded: ${invoice.id}`);
-        // Handle subscription renewals or other invoice-based payments
-        // You might need to fetch the associated Checkout Session or Subscription to get metadata.
-    } else if (event.type === 'charge.refunded' || event.type === 'charge.dispute.created') {
-        // Niche-specific: Handle refunds or disputes
-        console.log(`Handling refund or dispute for event type: ${event.type}`);
-        // Update user access, mark as refunded in DB, notify admins, etc.
+      // --- Niche-specific Post-Purchase Actions (Optional, but common) ---
+      // 1. Send a confirmation email to `customerEmail` with a link to download the notes.
+      // 2. Invalidate a cache that stores user's accessible PDFs to ensure immediate access.
+      // 3. Trigger a background job for any long-running fulfillment tasks.
+
+    } else if (event.type === 'charge.refunded') {
+      // Handle refunds: Update your database to mark the purchase as refunded.
+      const charge = event.data.object as Stripe.Charge;
+      console.log(`Charge refunded: ${charge.id}. Associated Payment Intent: ${charge.payment_intent}`);
+      // Implement logic to update 'purchases' table, revoke access, notify user.
+
+    } else if (event.type === 'charge.dispute.created') {
+      // Handle disputes: Alert your team, temporarily suspend access.
+      const dispute = event.data.object as Stripe.Dispute;
+      console.log(`Dispute created: ${dispute.id}. Associated Charge: ${dispute.charge}`);
+      // Implement dispute handling logic.
+
+    } else {
+      // Log any unhandled event types for awareness, but don't error out.
+      console.warn(`Unhandled webhook event type received: ${event.type}`);
     }
-    // ... add more event handlers as needed
 
-    // 6. Return a 200 OK response to Stripe
-    // Stripe expects a 200 OK within a reasonable time (usually a few seconds).
-    // If you have long-running tasks, offload them to a queue/background job.
+    // --- 5. Return a successful response to Stripe ---
+    // A 200 OK status code is crucial for Stripe to stop retrying the webhook.
     return NextResponse.json({ received: true }, { status: 200 });
 
   } catch (error: any) {
-    console.error('Webhook processing error:', error.message);
-    // Return 400 for errors like signature mismatch, 500 for internal server errors.
-    return NextResponse.json({ error: `Webhook Error: ${error.message}` }, { status: error.statusCode || 500 });
+    // --- 6. Centralized Error Handling for the Webhook ---
+    // Log the error for debugging.
+    console.error('Webhook processing failed:', error.message);
+
+    // Return an appropriate HTTP status code to Stripe.
+    // 400 for client-side errors (like invalid signature), 500 for server errors.
+    const statusCode = error.statusCode || (error.message.includes('No signatures found') ? 400 : 500);
+    return NextResponse.json(
+      { error: `Webhook Error: ${error.message}` },
+      { status: statusCode }
+    );
   }
 }
