@@ -23,28 +23,28 @@ export const sliderImages = [
 export const testimonials = [
     {
         id: "testimonial-01",
-        name: 'Jack Prairie',
+        name: 'Jally Prairie',
         title: 'Web Developer',
         image: '/images/user1.jpg',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis mi vitae elit efficitur efficitur. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae  Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac '
+        content: 'SkillsBazzar2 has been a game-changer for my learning journey. Their digital marketing courses are easy to follow and packed with real-world insights. I was able to apply strategies directly to my projects and saw instant results. Highly recommended for anyone wanting to upskill fast!'
     }, {
         id: "testimonial-02",
         name: 'David Malan',
         title: 'Teaching Assistant',
         image: '/images/user2.jpg',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis mi vitae elit efficitur efficitur. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac  Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac '
+        content: 'I’ve reviewed countless online resources, but SkillsBazzar2 stands out. The platform’s course structure, clarity, and practical focus are top-notch. It’s perfect for both beginners and professionals aiming to master digital marketing in a short time.'
     }, {
         id: "testimonial-03",
         name: 'Brian Yu',
         title: 'Teaching Assistant',
         image: '/images/user3.jpg',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis mi vitae elit efficitur efficitur. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac  Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae '
+        content: 'From SEO to paid advertising, SkillsBazzar2 simplifies complex topics. The PDF downloads and concise lessons helped me stay consistent and focused. If you are serious about results, this platform delivers value beyond expectations.'
     }, {
         id: "testimonial-04",
         name: 'Lee Marry',
         title: 'UI/UX Designer',
         image: '/images/user4.jpg',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis mi vitae elit efficitur efficitur. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae  Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae '
+        content: 'As a designer, I never thought digital marketing would interest me—until SkillsBazzar2. The visual presentation and learning flow are intuitive and engaging. It’s the perfect combo of aesthetics and value. I’m impressed and grateful.'
     },
 ]
 

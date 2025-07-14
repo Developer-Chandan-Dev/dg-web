@@ -19,8 +19,7 @@ const FeaturedCourses = async () => {
             </span>
           </h2>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab
-            accusamus adipisci alias aliquam animi consectetur dignissimos...
+            Explore our top-rated digital marketing courses designed for beginners and professionals. Learn practical skills that deliver real-world results.
           </p>
         </div>
 
