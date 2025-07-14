@@ -5,6 +5,7 @@ import {
   LinkedinIcon,
   TwitterIcon,
 } from "lucide-react";
+import CustomButton from "@/components/user/CustomButton";
 
 export const dynamic = "force-dynamic"; // OR omit if you remove all dynamic logic
 
@@ -39,8 +40,10 @@ const ContactPage = () => {
           >
             <InstagramIcon className={"size-6"} />
           </div>
-          <h5 className={"py-2"}>E-mail</h5>
-          <p className={"py-3"}>example@gmail.com</p>
+          <h5 className={"py-2"}>Insta</h5>
+          <p className={"py-3"}>
+            <CustomButton>Connect on Instra</CustomButton>
+          </p>
         </div>
         <div className={"feature-card w-64 flex-center flex-col"}>
           <div
@@ -50,8 +53,10 @@ const ContactPage = () => {
           >
             <TwitterIcon className={"size-6"} />
           </div>
-          <h5 className={"py-2"}>E-mail</h5>
-          <p className={"py-3"}>example@gmail.com</p>
+          <h5 className={"py-2"}>Twitter</h5>
+          <p className={"py-3"}>
+            <CustomButton>Connect on Twitter</CustomButton>
+          </p>
         </div>
         <div className={"feature-card w-64 flex-center flex-col"}>
           <div
@@ -61,8 +66,10 @@ const ContactPage = () => {
           >
             <FacebookIcon className={"size-6"} />
           </div>
-          <h5 className={"py-2"}>E-mail</h5>
-          <p className={"py-3"}>example@gmail.com</p>
+          <h5 className={"py-2"}>Facebook</h5>
+          <p className={"py-3"}>
+            <CustomButton>Connect on Facebook</CustomButton>
+          </p>
         </div>
         <div className={"feature-card w-64 flex-center flex-col"}>
           <div
@@ -73,7 +80,9 @@ const ContactPage = () => {
             <LinkedinIcon className={"size-6"} />
           </div>
           <h5 className={"py-2"}>LinkedIn</h5>
-          <p className={"py-3"}>example@gmail.com</p>
+          <p className={"py-3"}>
+            <CustomButton>Connect on LinkedIn</CustomButton>
+          </p>
         </div>
       </div>
 
@@ -128,9 +137,9 @@ const ContactPage = () => {
 
           {/* Feedback form */}
           <div className="lg:w-1/3 md:w-1/2 bg-var(--background) flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
-            <h2 className="mb-1 title-font">Feedback</h2>
+            <h2 className="mb-1 title-font">Connect with Us</h2>
             <p className="leading-relaxed mb-5">
-              Post‑ironic portland shabby chic echo park, banjo fashion axe
+              Fill this form for Contact Us
             </p>
 
             <div className="relative mb-4">
@@ -144,6 +153,7 @@ const ContactPage = () => {
                 type="text"
                 id="name"
                 name="name"
+                required
                 className="w-full ring-1 ring-gray-300 inputBox rounded border focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 dark:text-gray-300 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
               />
             </div>
@@ -159,6 +169,7 @@ const ContactPage = () => {
                 type="email"
                 id="email"
                 name="email"
+                required
                 className="w-full ring-1 ring-gray-300 inputBox rounded border focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 dark:text-gray-300 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
               />
             </div>
@@ -173,6 +184,7 @@ const ContactPage = () => {
               <textarea
                 id="message"
                 name="message"
+                required
                 className="w-full inputBox rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 dark:text-gray-300 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
               ></textarea>
             </div>
