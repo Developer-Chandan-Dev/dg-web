@@ -76,7 +76,7 @@ const Navbar = () => {
         </SignedOut>
 
         <SignedIn>
-          <UserButton>
+          <UserButton afterSignOutUrl="/">
             <UserButton.UserProfilePage
               label="Downloads"
               url="/downloads"

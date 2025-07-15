@@ -56,7 +56,7 @@ export default function DownloadsTable({ userId }: { userId: string }) {
     <Table className="mt-3">
       <TableCaption>Your purchased PDF courses.</TableCaption>
       <TableHeader>
-        <TableRow>
+        <TableRow className="dark:!text-gray-700">
           <TableHead>Thumbnail</TableHead>
           <TableHead>Title</TableHead>
           <TableHead className="text-right">Price</TableHead>
