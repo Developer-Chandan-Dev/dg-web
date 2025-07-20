@@ -10,7 +10,7 @@ export default function AdminLayout({
   return (
     <div className="flex h-screen bg-var(--background) overflow-hidden">
       <Sidebar />
-      <main className="flex-1 overflow-y-auto bg-var(--background) px-10 pt-3 pb-6">
+      <main className="flex-1 overflow-y-auto bg-var(--background) px-3 sm:px-10 pt-3 pb-6">
         <DashboardHeader/>
         {children}
       </main>

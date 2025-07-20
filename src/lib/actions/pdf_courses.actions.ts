@@ -4,6 +4,7 @@ import { auth } from '@clerk/nextjs/server';
 import { createClient } from '@supabase/supabase-js';
 import { createSupabaseClient } from '../supabase';
 import { clerkClient } from '@clerk/clerk-sdk-node';
+import { GetAllCourses } from '@/types';
 
 // Action for creating new course
 export async function createNewCourse(formData: FormData) {

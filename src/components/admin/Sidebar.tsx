@@ -6,6 +6,7 @@ import Link from 'next/link'
 import {
     Home,
     Users,
+    ListChecks,
     Settings,
     BarChart3,
     ChevronsLeft,
@@ -17,7 +18,8 @@ import { cn } from '@/lib/utils'
 
 const sidebarItems = [
     { name: 'Dashboard', icon: Home, href: '/admin' },
-    { name: 'Users', icon: Users, href: '/admin/users' },
+    // { name: 'Users', icon: Users, href: '/admin/users' },
+    { name: 'Courses', icon: ListChecks, href: '/admin/courses' },
     { name: 'Sales', icon: ShoppingBag, href: '/admin/sales' },
     { name: 'Analytics', icon: BarChart3, href: '/admin/analytics' },
     { name: 'Settings', icon: Settings, href: '/admin/settings' },
@@ -48,7 +50,7 @@ export function Sidebar() {
                     onClick={() => setCollapsed(true)}
                 />
             )}
-            <button className="absolute text-gray-700 cursor-pointer dark:text-gray-200 left-2 top-7 md:hidden p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition" onClick={() => setCollapsed(false)}>
+            <button className="absolute text-gray-700 cursor-pointer dark:text-gray-200 left-2 top-15 sm:top-7 md:hidden p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition" onClick={() => setCollapsed(false)}>
                 <PanelRight size={20}/>
             </button>
             <aside
