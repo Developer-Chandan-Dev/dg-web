@@ -37,3 +37,12 @@ export type SALES = {
   price: number;
   userId: string;
 };
+
+export type USER = {
+  id: string;
+  email: string;
+  full_name: string;
+  role: string;
+  created_at: string;
+  userId: string;
+};

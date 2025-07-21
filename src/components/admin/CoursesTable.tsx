@@ -61,61 +61,6 @@ async function fetchPDFs(): Promise<PDF[]> {
   }));
 }
 
-// export const columns: ColumnDef<PDF>[] = [
-//   {
-//     accessorKey: "title",
-//     header: ({ column }) => (
-//       <Button
-//         variant="ghost"
-//         className="h-8 w-full justify-start"
-//         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-//       >
-//         Title
-//         <ArrowUpDown className="ml-2 h-4 w-4" />
-//       </Button>
-//     ),
-//   },
-//   {
-//     accessorKey: "price",
-//     header: "Price",
-//   },
-//   {
-//     accessorKey: "description",
-//     header: "Description",
-//     cell: ({ row }) => {
-//       const desc: string = row.getValue("description");
-//       return desc.length > 20 ? `${desc.slice(0, 20)}...` : desc;
-//     },
-//   },
-//   {
-//     accessorKey: "created_At",
-//     header: "Created At",
-//     cell: ({ row }) => {
-//       const rawDate: string = row.getValue("created_At");
-//       const formatted = format(new Date(rawDate), "dd MMM yyyy hh:mm a");
-//       return formatted;
-//     },
-//   },
-//   {
-//     id: "actions",
-//     cell: () => (
-//       <DropdownMenu>
-//         <DropdownMenuTrigger asChild>
-//           <Button variant="ghost" size="icon">
-//             <MoreHorizontal className="h-4 w-4" />
-//           </Button>
-//         </DropdownMenuTrigger>
-//         <DropdownMenuContent align="end">
-//           <DropdownMenuItem>Edit</DropdownMenuItem>
-//           <DropdownMenuItem>Delete</DropdownMenuItem>
-//           <DropdownMenuSeparator />
-//           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-//         </DropdownMenuContent>
-//       </DropdownMenu>
-//     ),
-//   },
-// ];
-
 const CoursesTable = () => {
   const [data, setData] = React.useState<PDF[]>([]);
   const [loading, setLoading] = React.useState(true);
