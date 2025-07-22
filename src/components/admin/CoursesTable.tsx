@@ -181,29 +181,46 @@ const CoursesTable = () => {
             ))}
           </TableHeader>
           {loading && (
-            <TableBody className="flex justify-center items-center py-20">
+            <TableBody className="">
               <TableRow>
-                <Loader2 className="text-center animate-spin w-6 h-6 text-muted-foreground" />
+                <TableCell
+                  colSpan={5}
+                  className="h-24 text-center"
+                >
+                  PDF Loading...
+                  {/* <Loader2 className="animate-spin w-6 h-6 text-muted-foreground" /> */}
+                </TableCell>
               </TableRow>
             </TableBody>
           )}
           {!loading && (
             <TableBody>
-              {table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
+              {table.getRowModel().rows.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={table.getAllColumns().length}
+                    className="h-24 text-center"
+                  >
+                    No results.
+                  </TableCell>
                 </TableRow>
-              ))}
+              )}
             </TableBody>
           )}
         </Table>

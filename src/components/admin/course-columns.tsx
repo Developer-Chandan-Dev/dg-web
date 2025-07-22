@@ -32,6 +32,13 @@ export const CourseColumns = (
   {
     accessorKey: "price",
     header: "Price (₹)",
+    cell: ({ row }) => (
+      <div className="">₹{row.getValue("price")}</div>
+    ),
+    filterFn: (row, columnId, value: [number, number]) => {
+      const price = row.getValue(columnId) as number;
+      return price >= value[0] && price <= value[1];
+    },
   },
   {
     accessorKey: "description",
@@ -83,22 +90,6 @@ export const CourseColumns = (
             <DropdownMenuItem>Download</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        // <div className="flex items-center justify-end gap-2">
-        //   <Button
-        //     variant="outline"
-        //     onClick={() =>
-        //       window.open(`/api/download?pdfId=${pdf.id}`, "_blank")
-        //     }
-        //   >
-        //     Download
-        //   </Button>
-        //   <Button variant="destructive" onClick={() => handleDelete(pdf.id)}>
-        //     Delete
-        //   </Button>
-        //   <Button variant="secondary" onClick={() => setSelectedPdf(pdf)}>
-        //     Edit
-        //   </Button>
-        // </div>
       );
     },
   },
