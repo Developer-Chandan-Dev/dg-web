@@ -18,7 +18,7 @@ SkillsBazzar2 is a full-stack web application for selling and downloading PDF-ba
 - 🔐 **Authentication** – Sign in & Sign up with [Clerk.dev](https://clerk.dev)
 - 🎫 **Role-based Access** – Admin can upload/delete; users can only view & purchase
 - 📄 **PDF Storage** – Courses stored in Supabase Storage (with thumbnails)
-- 💰 **Stripe & Razorpay Integration** – Secure payment flow (test + live support)
+- 💰 **Razorpay Integration** – Secure payment flow (test + live support)
 - 📥 **Purchases** – Users can buy and download their PDFs
 - 📊 **Admin Panel** – List, create, update, and delete PDF courses
 - 📦 **Supabase RLS** – Row-level security for protecting sensitive data
@@ -36,7 +36,7 @@ SkillsBazzar2 is a full-stack web application for selling and downloading PDF-ba
 | Authentication | Clerk.dev               |
 | Database       | Supabase PostgreSQL     |
 | File Storage   | Supabase Storage        |
-| Payments       | Stripe (test + live), Razorpay |
+| Payments       | Stripe (test ), Razorpay (live) |
 | Deployment     | Vercel                  |
 
 ---
@@ -46,7 +46,7 @@ SkillsBazzar2 is a full-stack web application for selling and downloading PDF-ba
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/skillsbazzar2.git
+git clone https://github.com/Developer-Chandan-Dev/skillsbazzar2.git
 cd skillsbazzar2
 ```
 
@@ -54,8 +54,6 @@ cd skillsbazzar2
 
 ```bash
 npm install
-# or
-pnpm install
 ```
 
 ### 3. Configure Environment Variables
@@ -63,6 +61,10 @@ pnpm install
 Create a `.env.local` file and add:
 
 ```env
+NEXT_PUBLIC_BASE_URL=https://skillsbazzar2.vercel.app
+NEXT_PUBLIC_WEBSITE_NAME=Skillsbazzar2
+NEXT_PUBLIC_SUPABASE_STORAGE_URL=https://[project_id].supabase.co/storage/v1/object/public/[bucket_name]/[file_path]
+
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
 CLERK_SECRET_KEY=your_clerk_secret_key
 
@@ -70,11 +72,13 @@ NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 
-STRIPE_SECRET_KEY=your_stripe_secret_key
-STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/
+NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/
 
 RAZORPAY_KEY_ID=your_razorpay_key_id
 RAZORPAY_KEY_SECRET=your_razorpay_key_secret
+NEXT_PUBLIC_RAZORPAY_KEY_ID=your_razorpay_key_secret
 ```
 
 ---
