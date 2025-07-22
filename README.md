@@ -1,140 +1,114 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📘 SkillsBazzar2 – Digital Course Selling Platform
 
-## Getting Started
+[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-000?logo=vercel)](https://skillsbazzar2.vercel.app)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Clerk Auth](https://img.shields.io/badge/Auth-Clerk-blueviolet)](https://clerk.dev)
+[![Supabase](https://img.shields.io/badge/Backend-Supabase-3ecf8e)](https://supabase.com)
+[![Stripe](https://img.shields.io/badge/Payments-Stripe-blue)](https://stripe.com)
+[![Razorpay](https://img.shields.io/badge/Payments-Razorpay-3776ab)](https://razorpay.com)
 
-First, run the development server:
+SkillsBazzar2 is a full-stack web application for selling and downloading PDF-based courses. It supports secure user authentication, role-based access control, digital payment integration, and admin functionalities for managing content.
+
+🔗 **Live Site:** [https://skillsbazzar2.vercel.app](https://skillsbazzar2.vercel.app)
+
+---
+
+## 📌 Features
+
+- 🔐 **Authentication** – Sign in & Sign up with [Clerk.dev](https://clerk.dev)
+- 🎫 **Role-based Access** – Admin can upload/delete; users can only view & purchase
+- 📄 **PDF Storage** – Courses stored in Supabase Storage (with thumbnails)
+- 💰 **Stripe & Razorpay Integration** – Secure payment flow (test + live support)
+- 📥 **Purchases** – Users can buy and download their PDFs
+- 📊 **Admin Panel** – List, create, update, and delete PDF courses
+- 📦 **Supabase RLS** – Row-level security for protecting sensitive data
+- 📈 **User Tracking** – Records new signups in Supabase `users` table
+- 📄 **SEO Friendly** – Structured metadata, clean routing with Next.js
+
+---
+
+## 🛠 Tech Stack
+
+| Category       | Technology              |
+|----------------|-------------------------|
+| Frontend       | Next.js 14 (App Router) |
+| Styling        | Tailwind CSS            |
+| Authentication | Clerk.dev               |
+| Database       | Supabase PostgreSQL     |
+| File Storage   | Supabase Storage        |
+| Payments       | Stripe (test + live), Razorpay |
+| Deployment     | Vercel                  |
+
+---
+
+## 🧑‍💻 Setup Instructions
+
+### 1. Clone the Repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/your-username/skillsbazzar2.git
+cd skillsbazzar2
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install Dependencies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+# or
+pnpm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Configure Environment Variables
 
-## Learn More
+Create a `.env.local` file and add:
 
-To learn more about Next.js, take a look at the following resources:
+```env
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+CLERK_SECRET_KEY=your_clerk_secret_key
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+STRIPE_SECRET_KEY=your_stripe_secret_key
+STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
 
-## Deploy on Vercel
+RAZORPAY_KEY_ID=your_razorpay_key_id
+RAZORPAY_KEY_SECRET=your_razorpay_key_secret
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## ⚙️ Supabase Setup
 
+- Create tables: `pdf_courses`, `purchases`, `users`
+- Enable **RLS** and define access policies
+- Use **Storage Buckets** for uploading PDFs and thumbnails
 
+---
 
-# ✅ 📋 Project Master Checklist
-🔧 SETUP PHASE
-✅ Next.js project setup with Tailwind CSS
+## 🔁 Webhooks
 
-✅ shadcn/ui integration
+- Stripe: Handle `checkout.session.completed` for purchase creation
+- Razorpay: Add similar webhook and insert data manually into Supabase
 
-✅ Supabase project created
+---
 
-✅ Supabase pdf_courses and purchases tables created
+## ✅ Admin Features
 
-✅ Supabase Storage bucket (pdfs) created and set to private
+- Upload new courses (PDF + Thumbnail)
+- Edit existing course metadata
+- Delete courses with file cleanup
+- View purchase logs
 
-✅ Clerk authentication setup (login, signup)
+---
 
-✅ Clerk and Supabase integration complete
+## 🧾 License
 
-👤 User Side (Main Website)
-📂 Course (PDF) Listing Page
-Show all available PDF courses from pdf_courses table
+This project is licensed under the MIT License.
 
-Show title, price, short description
+---
 
-"Buy Now" button for each course
+## ✨ Author
 
-💳 Payment Flow
-Integrate Stripe
-
-Create Stripe checkout session on "Buy Now"
-
-Redirect to Stripe payment page
-
-Webhook: On successful payment, insert record in purchases table
-
-📥 PDF Download Access
-After payment, show "Download" button for purchased PDFs
-
-Check if purchases table has record for user and that pdf_id
-
-Use signed URL from Supabase Storage to securely download
-
-👤 User Dashboard (Optional)
-List all PDFs the user has purchased
-
-Allow download again anytime
-
-🛠️ Admin Panel (/admin route group)
-Only allow admin access (based on Clerk role or userId check)
-
-Upload PDF form:
-
-Title, description, price input
-
-Upload file to Supabase Storage
-
-Insert metadata into pdf_courses table
-
-Show list of all uploaded courses
-
-Edit/Delete option for each
-
-🔐 Security & RLS
-Supabase RLS enabled for purchases table
-
-RLS policy: only allow logged-in user to view/insert their purchases
-
-PDFs storage access secured using Supabase signed URLs
-
-🧪 Testing
-Test: PDF upload from admin
-
-Test: Buy and pay PDF from user side
-
-Test: PDF accessible only after purchase
-
-Test: Repeat download allowed to same user
-
-Test: Unauthorized user can't download paid PDFs
-
-✨ Bonus Features (Optional)
-Add categories/tags to PDFs
-
-User profile page with Clerk
-
-Search/filter PDF list
-
-Coupon/discount integration
-
-Email notifications on purchase
-
-📊 Example Progress View (Current Status)
-Feature	Status
-Project Setup	✅ Done
-Supabase Tables	✅ Done
-Clerk Auth	✅ Done
-PDF Upload	⏳ In Progress
-Course Listing	❌ Not Started
-Stripe Payment	❌ Not Started
-Purchase Table Entry	❌ Not Started
-PDF Download Logic	❌ Not Started
-Admin Panel	⏳ Partial
-RLS Policies	✅ Done
+Built with ❤️ by [Chandan Dev](https://github.com/Developer-Chandan-Dev)
