@@ -62,13 +62,13 @@ Show title, price, short description
 "Buy Now" button for each course
 
 💳 Payment Flow
-Integrate Stripe
+Integrate Razorpay
 
-Create Stripe checkout session on "Buy Now"
+Create Razorpay checkout session on "Buy Now"
 
-Redirect to Stripe payment page
+Redirect to Razorpay payment page
 
-Webhook: On successful payment, insert record in purchases table
+Payment Vertifcation: On successful payment, insert record in purchases table
 
 📥 PDF Download Access
 After payment, show "Download" button for purchased PDFs
@@ -133,7 +133,7 @@ Supabase Tables	✅ Done
 Clerk Auth	✅ Done
 PDF Upload	⏳ In Progress
 Course Listing	❌ Not Started
-Stripe Payment	❌ Not Started
+Razorpay Payment	❌ Not Started
 Purchase Table Entry	❌ Not Started
 PDF Download Logic	❌ Not Started
 Admin Panel	⏳ Partial

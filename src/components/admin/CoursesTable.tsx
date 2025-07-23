@@ -183,10 +183,7 @@ const CoursesTable = () => {
           {loading && (
             <TableBody className="">
               <TableRow>
-                <TableCell
-                  colSpan={5}
-                  className="h-24 text-center"
-                >
+                <TableCell colSpan={5} className="h-24 text-center">
                   PDF Loading...
                   {/* <Loader2 className="animate-spin w-6 h-6 text-muted-foreground" /> */}
                 </TableCell>

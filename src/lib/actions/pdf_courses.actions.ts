@@ -206,7 +206,6 @@ export async function updateCourse(id: string, formData: FormData) {
 export async function deleteCourse(id: string) {
   const { userId } = await auth();
   if (!userId) throw new Error('Unauthorized');
-  console.log(id, '208');
 
   // ✅ Fetch role from Clerk
   const user = await clerkClient.users.getUser(userId);

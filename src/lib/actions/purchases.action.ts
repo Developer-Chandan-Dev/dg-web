@@ -119,15 +119,23 @@ export async function getPurchasedCoursesById(userId: string) {
 }
 
 export async function getPurchasedCourses() {
+  const { userId } = await auth();
+  
+  if (!userId) {
+    console.error("User ID is undefined");
+    return [];
+  }
+
   const supabase = createSupabaseClient();
   console.log("Fetching all purchases");
   const { data, error } = await supabase
     .from("purchases")
     .select(
-      "id, user_id, purchased_at, pdf_courses(id,title, price), users(id, full_name, email)"
+      "id, user_id, purchased_at, pdf_courses(id, title, price), users(id, full_name, email)"
     );
 
   if (error) {
+    console.log(error);
     console.error("Error fetching purchases:", error.message);
     return [];
   }
@@ -144,3 +152,5 @@ export async function getPurchasedCourses() {
     email: item.users.email,
   }));
 }
+
+// ((auth.jwt() ->> 'sub'::text) = "userId")

@@ -31,11 +31,13 @@ export type PDF = {
 };
 
 export type SALES = {
+  purchasedAt: string;
+  userId: string;
   purchaseId: string;
   title: string;
-  purchasedAt: string;
   price: number;
-  userId: string;
+  userName: string;
+  email: string;
 };
 
 export type USER = {
