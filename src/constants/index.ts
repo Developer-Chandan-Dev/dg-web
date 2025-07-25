@@ -54,7 +54,7 @@ export const ourExperts = [
         name: 'Lila Martinez',
         title: 'Social Media Campaign Manager',
         image: '/images/user1.jpg',
-        content: " Lila specializes in designing viral social campaigns for lifestyle brands. Her creative content calendars and deep understanding of platform algorithms have earned her a reputation as a go-to expert for turning engagement into conversions."
+        content: "Lila specializes in designing viral social campaigns for lifestyle brands. Her creative content calendars and deep understanding of platform algorithms have earned her a reputation as a go-to expert for turning engagement into conversions."
     },
     {
         id: "expert-02",

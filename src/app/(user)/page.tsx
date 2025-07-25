@@ -8,6 +8,8 @@ import TestimonialCard from "@/components/user/TestimonialCard";
 import { ourExperts, testimonials } from "@/constants";
 import CustomButton from "@/components/user/CustomButton";
 import FeaturedCourses from "@/components/user/FeaturedCourses";
+import { CometCardDemo } from "@/components/user/CometCardDemo";
+import { InfiniteMovingCardsDemo } from "@/components/user/InfiniteMovingCardsDemo";
 
 export const dynamic = "force-dynamic"; // Force dynamic rendering
 
@@ -44,7 +46,8 @@ const Page = () => {
               }
             >
               {ourExperts.map((expert) => (
-                <MediumCard key={expert.id} {...expert} />
+                // <MediumCard key={expert.id} {...expert} />
+                <CometCardDemo key={expert.id} {...expert} />
               ))}
             </div>
           </div>
@@ -68,15 +71,15 @@ const Page = () => {
               <p>
                 In today's digital age, traditional marketing isn't enough.
                 Digital marketing helps businesses reach a wider audience, build
-                brand awareness, and drive more sales. It's cost-effective, measurable, and allows targeted customer
-                engagement. 
+                brand awareness, and drive more sales. It's cost-effective,
+                measurable, and allows targeted customer engagement.
               </p>
               <br />
               <p>
-                Whether you're a startup or a growing brand, digital
-                marketing is essential for staying competitive. Gain visibility,
-                connect with your audience, and grow faster online with the
-                power of digital tools and platforms.
+                Whether you're a startup or a growing brand, digital marketing
+                is essential for staying competitive. Gain visibility, connect
+                with your audience, and grow faster online with the power of
+                digital tools and platforms.
               </p>
               <CustomButton size={"sm"} className={"mt-5"}>
                 Read More...
@@ -143,7 +146,9 @@ const Page = () => {
                 Our Modern Office<span className={"gradient-text"}> Space</span>
               </h2>
               <p>
-                Step inside our creatively designed workspace that inspires innovation and productivity. We believe a great environment fuels great ideas.
+                Step inside our creatively designed workspace that inspires
+                innovation and productivity. We believe a great environment
+                fuels great ideas.
               </p>
             </div>
             <div className={" w-full sm:w-11/12 mx-auto px-2 sm:px-10 py-10"}>
@@ -169,6 +174,25 @@ const Page = () => {
             </div>
           </div>
         </section>
+
+        {/* <section className="body-font bg-[var(--background)] text-[var(--foreground)] ">
+          <div className="container px-5 py-24 mx-auto">
+            <h2 className=" title-font text-gray-900 dark:text-gray-100 mb-12 text-center">
+              Testi<span className={"gradient-text"}>monials</span>
+            </h2>
+            <div className="flex flex-wrap -m-4">
+              {testimonials.map((testimonial, index) => (
+                <TestimonialCard key={index} {...testimonial} />
+              ))}
+              <InfiniteMovingCardsDemo/>
+              <div className={"w-full flex items-center justify-center mt-5"}>
+                <CustomButton size={"sm"} className={"mx-auto"}>
+                  Explore more...
+                </CustomButton>
+              </div>
+            </div>
+          </div>
+        </section> */}
       </section>
     </>
   );
